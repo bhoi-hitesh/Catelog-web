@@ -41,7 +41,7 @@ const Blogs = () => {
 														<div className="card shadow rounded-0 mb-4" >
 															<div className="row g-0">
 																<div className="col-md-4">
-																	<Link href="/Blog/Blog page">
+																	<Link href={`Blog/${e.id}`}>
 																		<img
 																			src="https://dummyimage.com/275x200/f8f9fa/6c757d.jpg"
 																			className="img-fluid w-100 h-100"
@@ -56,7 +56,7 @@ const Blogs = () => {
 
 																		</strong>
 																		<Link
-																			href="/Blog/Blog page"
+																			href={`Blog/${e.id}`}
 																			className="text-dark text-decoration-none"
 																		>
 																			<p>{e.id}</p>
