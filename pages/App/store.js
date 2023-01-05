@@ -5,9 +5,11 @@ import { apiCall } from '../Features/apiCall';
 const store = configureStore({
     reducer: {
         [apiCall.reducerPath]: apiCall.reducer,
+
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiCall.middleware),
+
 })
 setupListeners(store.dispatch)
 export default store;

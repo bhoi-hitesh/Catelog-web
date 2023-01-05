@@ -3,22 +3,34 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 export let apiCall = createApi({
     reducerPath: 'apiCall',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://jsonplaceholder.typicode.com',
+        baseUrl: 'https://dummyjson.com',
     }),
     endpoints: (builder) => ({
         getAllData: builder.query({
             query: () => ({
-                url: 'posts',
+                url: 'products',
                 method: 'GET'
             }),
         }),
         getPostbyid: builder.query({
             query: (id) => ({
-                url: "posts/" + `${id}`,
+                url: `products/${id}`,
                 method: 'GET'
             }),
         }),
+        getPost: builder.query({
+            query: () => ({
+                url: 'posts',
+                method: 'GET'
+            })
+        }),
+        getsingalPost: builder.query({
+            query: (id) => ({
+                url: `posts/${id}`,
+                mehtod: 'GET'
+            })
+        })
     })
 })
 
-export let { useGetAllDataQuery, useGetPostbyidQuery } = apiCall
+export let { useGetAllDataQuery, useGetPostbyidQuery, useGetPostQuery, useGetsingalPostQuery } = apiCall

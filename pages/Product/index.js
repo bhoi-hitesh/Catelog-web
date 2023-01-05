@@ -1,168 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Banner from '../../Component/banner';
+import Productfilter from '../../Component/Productfilter';
+import ProductsPage from '../../Component/ProductsPage';
+import ProductsPagination from '../../Component/ProductsPagination';
+import { useGetAllDataQuery } from '../Features/apiCall';
 const product = () => {
+	const [getApi, setApi] = useState([])
+	const [mapData, setMapData] = useState()
+	const { data, isLoading } = useGetAllDataQuery()
+	// let apiData = res
+	// let apiproducts = apiData.data
+	// const trueData = getApi.products
+	// let loading = res.isLoading
+	// console.log("hitsh", getApi)
+	useEffect(() => {
+		{ isLoading ? '' : setApi(data.products) }
+	}, [data])
 	return (
 		<>
-			<Banner banner_slug="Product page" />
+
+			<Banner bannerTitle={"Products page"} />
+
 			<section id="pageContent" className="page-content py-5">
 				<div className="container">
 					<div className="row">
-						<div className="col-md-3 mb-5 mb-md-0">
-							<h3 className="mb-4">Filter By</h3>
-
-							<form method="get">
-								{/* <!-- Product Search --> */}
-								<div className="card mb-3 rounded-0">
-									<div className="card-header bg-light">Product Search</div>
-									<div className="card-body">
-										<input
-											type="text"
-											className="form-control"
-											placeholder="Enter Product Search"
-										/>
-									</div>
-								</div>
-								{/* <!-- EOF Product Search --> */}
-
-								{/* <!-- Price Filter --> */}
-								<div className="card mb-3 rounded-0">
-									<div className="card-header bg-light">Price</div>
-									<div className="card-body">
-										<div className="input-group">
-											<input
-												type="number"
-												className="form-control"
-												placeholder="Min"
-											/>
-											<input
-												type="number"
-												className="form-control"
-												placeholder="Max"
-											/>
-										</div>
-									</div>
-								</div>
-								{/* <!-- EOF Price Filter --> */}
-
-								{/* <!-- Category Filter --> */}
-								<div className="card mb-3 rounded-0">
-									<div className="card-header bg-light">Category</div>
-									<ul className="list-group list-group-flush">
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											Category 1
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											Category 2
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											Category 3
-										</li>
-									</ul>
-								</div>
-								{/* <!-- EOF Category Filter --> */}
-
-								{/* <!-- Color Filter --> */}
-								<div className="card mb-3 rounded-0">
-									<div className="card-header bg-light">Color</div>
-									<ul className="list-group list-group-flush">
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											Red
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											Green
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											Blue
-										</li>
-									</ul>
-								</div>
-								{/* <!-- EOF Color Filter --> */}
-
-								{/* <!-- Size Filter --> */}
-								<div className="card mb-3 rounded-0">
-									<div className="card-header bg-light">Size</div>
-									<ul className="list-group list-group-flush">
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											S
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											M
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											L
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											XL
-										</li>
-										<li className="list-group-item">
-											<input
-												className="form-check-input me-1"
-												type="checkbox"
-												value=""
-											/>
-											XXL
-										</li>
-									</ul>
-								</div>
-								{/* <!-- EOF Size Filter --> */}
-
-								<button type="submit" className="btn btn-outline-primary">
-									Apply Filter
-								</button>
-							</form>
-						</div>
-						{/* <!-- EOF Products Sidebar --> */}
+						{/* <!--  Products Sidebar Component --> */}
+						<Productfilter />
 
 						{/* <!-- Products List Section --> */}
 						<div className="col-md-9">
@@ -207,351 +71,30 @@ const product = () => {
 
 							{/* <!-- Products List Section --> */}
 							<div className="row">
-								<div className="col-md-6 col-lg-4 mb-4">
-									<div className="card shadow rounded-0">
-										<Link href="/Product/Product page ">
-											<img
-												src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-												className="card-img-top"
-												alt="Product title"
-											/>
-										</Link>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page page "
-												className="text-dark text-decoration-none"
-											>
-												<h5 className="card-title text-capitalize">
-													Product Title
-												</h5>
-											</Link>
-											<p className="card-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											</p>
+
+								{
+									isLoading
+										?
+										<div className=' text-center mt-5'>
+
+											<img src="/loaders/giphy.gif" alt="txt" />
 										</div>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Price:</b>
-													<span className="float-end">$12.00</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Color:</b>
-													<span className="float-end">Red</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Size:</b>
-													<span className="float-end">XL</span>
-												</small>
-											</li>
-										</ul>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="btn btn-outline-primary"
-											>
-												View Product
-											</Link>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-6 col-lg-4 mb-4">
-									<div className="card shadow rounded-0">
-										<Link href="/Product/Product page ">
-											<img
-												src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-												className="card-img-top"
-												alt="Product title"
-											/>
-										</Link>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="text-dark text-decoration-none"
-											>
-												<h5 className="card-title text-capitalize">
-													Product Title
-												</h5>
-											</Link>
-											<p className="card-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											</p>
-										</div>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Price:</b>
-													<span className="float-end">$12.00</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Color:</b>
-													<span className="float-end">Red</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Size:</b>
-													<span className="float-end">XL</span>
-												</small>
-											</li>
-										</ul>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="btn btn-outline-primary"
-											>
-												View Product
-											</Link>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-6 col-lg-4 mb-4">
-									<div className="card shadow rounded-0">
-										<Link href="/Product/Product page ">
-											<img
-												src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-												className="card-img-top"
-												alt="Product title"
-											/>
-										</Link>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="text-dark text-decoration-none"
-											>
-												<h5 className="card-title text-capitalize">
-													Product Title
-												</h5>
-											</Link>
-											<p className="card-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											</p>
-										</div>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Price:</b>
-													<span className="float-end">$12.00</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Color:</b>
-													<span className="float-end">Red</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Size:</b>
-													<span className="float-end">XL</span>
-												</small>
-											</li>
-										</ul>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="btn btn-outline-primary"
-											>
-												View Product
-											</Link>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-6 col-lg-4 mb-4">
-									<div className="card shadow rounded-0">
-										<Link href="/Product/Product page ">
-											<img
-												src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-												className="card-img-top"
-												alt="Product title"
-											/>
-										</Link>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="text-dark text-decoration-none"
-											>
-												<h5 className="card-title text-capitalize">
-													Product Title
-												</h5>
-											</Link>
-											<p className="card-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											</p>
-										</div>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Price:</b>
-													<span className="float-end">$12.00</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Color:</b>
-													<span className="float-end">Red</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Size:</b>
-													<span className="float-end">XL</span>
-												</small>
-											</li>
-										</ul>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="btn btn-outline-primary"
-											>
-												View Product
-											</Link>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-6 col-lg-4 mb-4">
-									<div className="card shadow rounded-0">
-										<Link href="/Product/Product page ">
-											<img
-												src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-												className="card-img-top"
-												alt="Product title"
-											/>
-										</Link>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="text-dark text-decoration-none"
-											>
-												<h5 className="card-title text-capitalize">
-													Product Title
-												</h5>
-											</Link>
-											<p className="card-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											</p>
-										</div>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Price:</b>
-													<span className="float-end">$12.00</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Color:</b>
-													<span className="float-end">Red</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Size:</b>
-													<span className="float-end">XL</span>
-												</small>
-											</li>
-										</ul>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="btn btn-outline-primary"
-											>
-												View Product
-											</Link>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-6 col-lg-4 mb-4">
-									<div className="card shadow rounded-0">
-										<Link href="/Product/Product page ">
-											<img
-												src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-												className="card-img-top"
-												alt="Product title"
-											/>
-										</Link>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="text-dark text-decoration-none"
-											>
-												<h5 className="card-title text-capitalize">
-													Product Title
-												</h5>
-											</Link>
-											<p className="card-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											</p>
-										</div>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Price:</b>
-													<span className="float-end">$12.00</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Color:</b>
-													<span className="float-end">Red</span>
-												</small>
-											</li>
-											<li className="list-group-item">
-												<small className="text-muted">
-													<b>Size:</b>
-													<span className="float-end">XL</span>
-												</small>
-											</li>
-										</ul>
-										<div className="card-body">
-											<Link
-												href="/Product/Product page "
-												className="btn btn-outline-primary"
-											>
-												View Product
-											</Link>
-										</div>
-									</div>
-								</div>
+										:
+										getApi.map((e, i) => {
+											return (
+												<>
+													<div className='col-lg-4 col-md-6 col-sm-12'>
+														<ProductsPage thumbnail={e.thumbnail} title={e.title} price={e.price} brand={e.brand} id={e.id} />
+													</div>
+												</>
+											)
+										})}
+
 							</div>
 							{/* <!-- EOF Products List Section --> */}
 
 							{/* <!-- Pagination --> */}
-							<nav aria-label="Page navigation example">
-								<ul className="pagination mb-0">
-									<li className="page-item">
-										<Link className="page-link" href="#">
-											<i className="bi bi-chevron-compact-left"></i>
-										</Link>
-									</li>
-									<li className="page-item">
-										<Link className="page-link" href="#">
-											1
-										</Link>
-									</li>
-									<li className="page-item">
-										<Link className="page-link" href="#">
-											2
-										</Link>
-									</li>
-									<li className="page-item">
-										<Link className="page-link" href="#">
-											3
-										</Link>
-									</li>
-									<li className="page-item">
-										<Link className="page-link" href="#">
-											<i className="bi bi-chevron-compact-right"></i>
-										</Link>
-									</li>
-								</ul>
-							</nav>
+							<ProductsPagination />
 							{/* <!-- EOF Pagination --> */}
 						</div>
 						{/* <!-- EOF Products List Section --> */}

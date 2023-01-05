@@ -3,7 +3,7 @@ import Banner from '../Component/banner'
 const About = () => {
 	return (
 		<>
-			<Banner banner_slug="About page" />
+			<Banner bannerTitle={"About page"} />
 			<section id="pageContent" className="page-content py-5">
 				<div className="container">
 					<div className="row">

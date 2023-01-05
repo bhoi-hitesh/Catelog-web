@@ -7,7 +7,7 @@ const Banner = (props) => {
 				<div className="container">
 					<div className="row">
 						<div className="col-12">
-							<h1 className="h3 text-white m-0 p-0">{props.banner_slug}</h1>
+							<h1 className="h3 text-white m-0 p-0">{props.bannerTitle}</h1>
 						</div>
 					</div>
 				</div>

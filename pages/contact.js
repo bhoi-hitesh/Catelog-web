@@ -4,7 +4,7 @@ import Banner from '../Component/banner'
 const Contact = () => {
 	return (
 		<>
-			<Banner banner_slug="Contact page" />
+			<Banner bannerTitle={"Contact page"} />
 			<section id="ContactPageContent" className="contact-page-content py-5">
 				<div className="container">
 					<div className="row">

@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Banner from '../../Component/banner';
-// import { useGetAllDataQuery } from './Features/apiCall';
 import { useEffect } from 'react';
-import { useGetAllDataQuery } from '../Features/apiCall';
+import { useGetPostQuery } from '../Features/apiCall';
 const Blogs = () => {
 	const [api, setApi] = useState(5)
-	const res = useGetAllDataQuery()
-	let getdata = res.data
-	let loading = res.isLoading
+	const [getBlog, setBlog] = useState([])
+	const { data, isLoading } = useGetPostQuery()
+
+	// let loading = res.isLoading
 	let loadmore = () => {
 		setApi(api + 5)
 	}
-
+	useEffect(() => {
+		{
+			isLoading ?
+				'' :
+				setBlog(data.posts)
+		}
+	}, [data])
+	console.log("darshan", getBlog);
 	return (
 		<>
 
-			<Banner banner_slug="Blogs page" />
+			<Banner bannerTitle={"Blogs Page"} />
 			<section id="pageContent" className="page-content py-5">
 				<div className="container">
 					<div className="row">
@@ -24,16 +31,15 @@ const Blogs = () => {
 						<div className="col-md-9">
 							{/* <!-- Blog List Section --> */}
 							<div className="row">
-								{loading
+								{isLoading
 									?
 									<div className=' text-center mt-5'>
-										<div className="spinner-border text-primary">
 
-										</div>
+										<img src="/loaders/giphy.gif" alt="txt" />
 									</div>
 									:
-									getdata.slice(0, api).map((e, i) => {
-
+									getBlog.slice(0, api).map((e, i) => {
+										console.log("mapdata", e)
 										return (
 											<>
 												<div>
@@ -41,9 +47,12 @@ const Blogs = () => {
 														<div className="card shadow rounded-0 mb-4" >
 															<div className="row g-0">
 																<div className="col-md-4">
+																	<p className='text-center'>
+																		<strong>{e.id}</strong>
+																	</p>
 																	<Link href={`Blog/${e.id}`}>
 																		<img
-																			src="https://dummyimage.com/275x200/f8f9fa/6c757d.jpg"
+																			src='/img/background-1.jpg'
 																			className="img-fluid w-100 h-100"
 																			alt="post title"
 																		/>
@@ -52,21 +61,22 @@ const Blogs = () => {
 																<div className="col-md-8">
 
 																	<div className="card-body">
-																		<strong className="d-inline-block mb-2 text-primary">
-
-																		</strong>
+																		<h3 className="d-inline-block mb-2 text-primary">
+																			{e.title}
+																		</h3>
 																		<Link
 																			href={`Blog/${e.id}`}
 																			className="text-dark text-decoration-none"
 																		>
-																			<p>{e.id}</p>
-																			<h5 className="card-title text-capitalize mb-0" key={i}>
-																				{e.title}
-																			</h5>
+																			<h4>{e.tags[0]}</h4>
+																			<p className="card-title text-capitalize mb-0" key={i}>
+																				{e.body}
+																			</p>
+
 																		</Link>
 																		<div className="mb-1 text-muted">Nov 12</div>
 																		<p className="card-text" key={i}>
-																			{e.body}
+																			{e.description}
 																		</p>
 																		<Link
 																			href={`Blog/${e.id}`}
@@ -90,7 +100,7 @@ const Blogs = () => {
 
 							{/* <!-- Load More --> */}
 
-							{loading
+							{isLoading
 								?
 								''
 								:
@@ -148,19 +158,25 @@ const Blogs = () => {
 											href="#"
 											className="list-group-item list-group-item-action"
 										>
-											Category 1
+											history
 										</Link>
 										<Link
 											href="#"
 											className="list-group-item list-group-item-action"
 										>
-											Category 2
+											american
 										</Link>
 										<Link
 											href="#"
 											className="list-group-item list-group-item-action"
 										>
-											Category 3
+											crime
+										</Link>
+										<Link
+											href="#"
+											className="list-group-item list-group-item-action"
+										>
+											english
 										</Link>
 									</div>
 								</div>

@@ -1,12 +1,18 @@
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Banner from '../Component/banner';
+import ProductsPage from '../Component/ProductsPage';
+import { useGetAllDataQuery } from './Features/apiCall';
 
 const Home = () => {
+	const [products, setProducts] = useState([])
 
+	const { data, isLoading } = useGetAllDataQuery()
 
-
-
+	useEffect(() => {
+		{ isLoading ? '' : setProducts(data.products) }
+	}, [isLoading])
 	return (
 		<>
 			<Banner banner_slug="Home page" />
@@ -110,217 +116,27 @@ const Home = () => {
 							<h3 className="mb-4">Featured Products</h3>
 						</div>
 						{/* <!-- Featured Products List --> */}
-						<div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<div className="card shadow rounded-0">
-								<Link href="Product/product">
-									<img
-										src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-										className="card-img-top"
-										alt="Product title"
-									/>
-								</Link>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="text-dark text-decoration-none"
-									>
-										<h5 className="card-title text-capitalize">
-											Product Title
-										</h5>
-									</Link>
-									<p className="card-text">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									</p>
-								</div>
-								<ul className="list-group list-group-flush">
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Price:</b>
-											<span className="float-end">$12.00</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Color:</b>
-											<span className="float-end">Red</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Size:</b>
-											<span className="float-end">XL</span>
-										</small>
-									</li>
-								</ul>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="btn btn-outline-primary"
-									>
-										View Product
-									</Link>
-								</div>
-							</div>
-						</div>
+						{
+							isLoading
+								?
+								<div className=' text-center mt-5'>
 
-						<div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<div className="card shadow rounded-0">
-								<Link href="Product/product">
-									<img
-										src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-										className="card-img-top"
-										alt="Product title"
-									/>
-								</Link>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="text-dark text-decoration-none"
-									>
-										<h5 className="card-title text-capitalize">
-											Product Title
-										</h5>
-									</Link>
-									<p className="card-text">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									</p>
+									<img src="/loaders/giphy.gif" alt="txt" />
 								</div>
-								<ul className="list-group list-group-flush">
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Price:</b>
-											<span className="float-end">$12.00</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Color:</b>
-											<span className="float-end">Red</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Size:</b>
-											<span className="float-end">XL</span>
-										</small>
-									</li>
-								</ul>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="btn btn-outline-primary"
-									>
-										View Product
-									</Link>
-								</div>
-							</div>
-						</div>
+								:
+								products.map((e, i) => {
+									return (
+										<>
 
-						<div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<div className="card shadow rounded-0">
-								<Link href="Product/product">
-									<img
-										src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-										className="card-img-top"
-										alt="Product title"
-									/>
-								</Link>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="text-dark text-decoration-none"
-									>
-										<h5 className="card-title text-capitalize">
-											Product Title
-										</h5>
-									</Link>
-									<p className="card-text">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									</p>
-								</div>
-								<ul className="list-group list-group-flush">
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Price:</b>
-											<span className="float-end">$12.00</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Color:</b>
-											<span className="float-end">Red</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Size:</b>
-											<span className="float-end">XL</span>
-										</small>
-									</li>
-								</ul>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="btn btn-outline-primary"
-									>
-										View Product
-									</Link>
-								</div>
-							</div>
-						</div>
+											<div className="col-md-6 col-lg-3 mb-4 mb-lg-0" key={e.id}>
+												<ProductsPage id={e.id} title={e.title} brand={e.brand} price={e.price} />
+											</div>
+										</>
+									)
+								})
+						}
 
-						<div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<div className="card shadow rounded-0">
-								<Link href="Product/product">
-									<img
-										src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg"
-										className="card-img-top"
-										alt="Product title"
-									/>
-								</Link>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="text-dark text-decoration-none"
-									>
-										<h5 className="card-title text-capitalize">
-											Product Title
-										</h5>
-									</Link>
-									<p className="card-text">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									</p>
-								</div>
-								<ul className="list-group list-group-flush">
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Price:</b>
-											<span className="float-end">$12.00</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Color:</b>
-											<span className="float-end">Red</span>
-										</small>
-									</li>
-									<li className="list-group-item">
-										<small className="text-muted">
-											<b>Size:</b>
-											<span className="float-end">XL</span>
-										</small>
-									</li>
-								</ul>
-								<div className="card-body">
-									<Link
-										href="Product/product"
-										className="btn btn-outline-primary"
-									>
-										View Product
-									</Link>
-								</div>
-							</div>
-						</div>
+
 
 						{/* <!-- EOF Featured Products List --> */}
 						<div className="col-12 mt-4 text-center">
