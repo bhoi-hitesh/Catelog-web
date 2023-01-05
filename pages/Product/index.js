@@ -6,17 +6,21 @@ import ProductsPage from '../../Component/ProductsPage';
 import ProductsPagination from '../../Component/ProductsPagination';
 import { useGetAllDataQuery } from '../Features/apiCall';
 const product = () => {
+	const [itemsPerpage, setItemsPerpage] = useState(3)
+	const [pagination, setPagination] = useState({
+		start: 0,
+		end: itemsPerpage
+	})
 	const [getApi, setApi] = useState([])
 	const [mapData, setMapData] = useState()
 	const { data, isLoading } = useGetAllDataQuery()
-	// let apiData = res
-	// let apiproducts = apiData.data
-	// const trueData = getApi.products
-	// let loading = res.isLoading
-	// console.log("hitsh", getApi)
 	useEffect(() => {
 		{ isLoading ? '' : setApi(data.products) }
 	}, [data])
+
+	let paginationchange = (start, end) => {
+		setPagination({ start: start, end: end })
+	}
 	return (
 		<>
 
@@ -27,7 +31,6 @@ const product = () => {
 					<div className="row">
 						{/* <!--  Products Sidebar Component --> */}
 						<Productfilter />
-
 						{/* <!-- Products List Section --> */}
 						<div className="col-md-9">
 							{/* <!-- Sort by --> */}
@@ -80,11 +83,11 @@ const product = () => {
 											<img src="/loaders/giphy.gif" alt="txt" />
 										</div>
 										:
-										getApi.map((e, i) => {
+										getApi.slice(pagination.start, pagination.end).map((e, i) => {
 											return (
 												<>
-													<div className='col-lg-4 col-md-6 col-sm-12'>
-														<ProductsPage thumbnail={e.thumbnail} title={e.title} price={e.price} brand={e.brand} id={e.id} />
+													<div className='col-lg-4 col-md-6 col-sm-12' key={i + 1}>
+														<ProductsPage thumbnail={e.thumbnail} title={e.title} price={e.price} brand={e.brand} id={e.id} key={i} />
 													</div>
 												</>
 											)
@@ -94,7 +97,7 @@ const product = () => {
 							{/* <!-- EOF Products List Section --> */}
 
 							{/* <!-- Pagination --> */}
-							<ProductsPagination />
+							<ProductsPagination pagecounter={itemsPerpage} onPagechange={paginationchange} />
 							{/* <!-- EOF Pagination --> */}
 						</div>
 						{/* <!-- EOF Products List Section --> */}

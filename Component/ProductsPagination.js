@@ -1,34 +1,31 @@
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
-const ProductsPagination = () => {
+const ProductsPagination = ({ pagecounter, onPagechange }) => {
+    let [counter, setCounter] = useState(1)
+    useEffect(() => {
+        let value = pagecounter * counter;
+        onPagechange(value - pagecounter, value)
+        console.log("start: ", value - pagecounter);
+        console.log("end: ", value);
+    }, [counter])
     return (
+
         <>
-            <nav aria-label="Page navigation example">
-                <ul className="pagination mb-0">
-                    <li className="page-item">
-                        <Link className="page-link" href="#">
-                            <i className="bi bi-chevron-compact-left"></i>
-                        </Link>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <button class="page-link" onClick={() => setCounter(counter - 1)}>Previous</button>
                     </li>
-                    <li className="page-item">
-                        <Link className="page-link" href="#">
-                            1
-                        </Link>
-                    </li>
-                    <li className="page-item">
-                        <Link className="page-link" href="#">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active">
+                        <span class="page-link">
                             2
-                        </Link>
+                        </span>
                     </li>
-                    <li className="page-item">
-                        <Link className="page-link" href="#">
-                            3
-                        </Link>
-                    </li>
-                    <li className="page-item">
-                        <Link className="page-link" href="#">
-                            <i className="bi bi-chevron-compact-right"></i>
-                        </Link>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <button class="page-link" onClick={() => setCounter(counter + 1)}>Next</button>
                     </li>
                 </ul>
             </nav>

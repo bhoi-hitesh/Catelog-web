@@ -6,7 +6,7 @@ const ProductsPage = (props) => {
     return (
         <>
 
-            <div className="card shadow rounded-0 m-3" key={props.id}>
+            <div className="card shadow rounded-0 m-3" key={props.key}>
                 <Link href={`/Product/${props.id} `}>
                     <img
                         src='/img/background-1.jpg'
@@ -15,6 +15,7 @@ const ProductsPage = (props) => {
                     />
                 </Link>
                 <div className="card-body">
+                    <p>{props.id}</p>
                     <Link
                         href={`/Product/${props.id} `}
                         className="text-dark text-decoration-none"

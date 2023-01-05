@@ -41,7 +41,7 @@ const products = () => {
 								productApi.map((e, i) => {
 									return (
 										<>
-											<div className="col-md-12">
+											<div className="col-md-12" key={i + 1}>
 												<div className="row">
 													{/* <!-- Product Image --> */}
 													<div className="col-md-8">
