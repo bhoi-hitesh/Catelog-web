@@ -8,6 +8,7 @@ const ProductsPagination = ({ pagecounter, onPagechange }) => {
         onPagechange(value - pagecounter, value)
         console.log("start: ", value - pagecounter);
         console.log("end: ", value);
+
     }, [counter])
     return (
 

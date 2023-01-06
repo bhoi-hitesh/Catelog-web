@@ -19,7 +19,22 @@ const Blogs = () => {
 				setBlog(data.posts)
 		}
 	}, [data])
-	console.log("darshan", getBlog);
+	let filterhistory = (catItem) => {
+
+		let result = getBlog.filter((curData) => {
+			return curData.tags[0] === catItem
+		})
+
+		setBlog(result)
+
+
+	}
+	console.log(getBlog)
+	useEffect(() => {
+		filterhistory()
+	}, [])
+
+
 	return (
 		<>
 
@@ -39,7 +54,6 @@ const Blogs = () => {
 									</div>
 									:
 									getBlog.slice(0, api).map((e, i) => {
-										console.log("mapdata", e)
 										return (
 											<>
 												<div>
@@ -154,30 +168,35 @@ const Blogs = () => {
 								<div className="card mb-3 rounded-0">
 									<div className="card-header bg-light">Category</div>
 									<div className="list-group border-0 rounded-0">
-										<Link
-											href="#"
+										<button
+
 											className="list-group-item list-group-item-action"
+											onClick={() => filterhistory('history')}
 										>
 											history
-										</Link>
-										<Link
-											href="#"
+										</button>
+										<button
+
 											className="list-group-item list-group-item-action"
+											onClick={() => filterhistory('american')}
 										>
 											american
-										</Link>
-										<Link
-											href="#"
+										</button>
+										<button
+
 											className="list-group-item list-group-item-action"
+											onClick={() => filterhistory('crime')}
 										>
 											crime
-										</Link>
-										<Link
-											href="#"
+										</button>
+										<button
+
 											className="list-group-item list-group-item-action"
+											onClick={() => filterhistory('english')}
 										>
 											english
-										</Link>
+										</button>
+
 									</div>
 								</div>
 								{/* <!-- EOF Category Filter --> */}

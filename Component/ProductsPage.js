@@ -62,5 +62,5 @@ const ProductsPage = (props) => {
         </>
     )
 }
-
 export default ProductsPage
+
